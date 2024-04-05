@@ -14,7 +14,7 @@ if ($result->num_rows > 0) {
         $object->cognome = $row["cognome"]; 
         $object->company = $row["company"]; 
         $object->firstaccess = $row["firstaccess"]; 
-        $object->permessi = $row["permessi"]; 
+        $object->active = $row["active"]; 
         $object->email = $row["email"]; 
         $object->telefono = $row["telefono"]; 
         array_push($data, $object);

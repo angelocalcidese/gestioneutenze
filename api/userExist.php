@@ -1,10 +1,10 @@
-<?php 
+<?php
 require_once "../cors.php";
 require_once "../config.php";
-require_once "../utility.php";
+require_once "utility.php";
 
 function emailExist($email){
-    $sql = "SELECT * FROM `users` WHERE `id` = ".$email;
+    $sql = "SELECT * FROM `user` WHERE `id` = ".$email;
     $result = $conn->query($sql);
     $response = array();
     $exist = false;
