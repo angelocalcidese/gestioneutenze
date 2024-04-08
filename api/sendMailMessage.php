@@ -16,19 +16,19 @@ function sendEmail($email, $message, $title){
         //Impostazioni server
         $mail->SMTPDebug = SMTP::DEBUG_SERVER;                 //Debug mode
         $mail->isSMTP();                                       //Invio tramite SMTP
-        $mail->Host       = 'smtp.gmail.com';                  //Server SMTP
+        $mail->Host       = 'smtps.aruba.it';                  //Server SMTP
         $mail->SMTPAuth   = true;                              //Abilita autenticazione SMTP
-        $mail->Username   = 'visualexperienceunimarconi@gmail.com';           //SMTP username
-        $mail->Password   = 'qikd lrof rplm cedv';                      //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;    //Abilita TLS implicito
-        $mail->Port       = 587;                               //Porta SMTP
+        $mail->Username   = 'info@easysw.it';           //SMTP username
+        $mail->Password   = 'E4sy6w!2023';                      //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;    //Abilita TLS implicito
+        $mail->Port       = 465;                               //Porta SMTP
 
         //Recipients
-        $mail->setFrom('visualexperienceunimarconi@gmail.com', 'Visual Experience Unimarconi');
+        $mail->setFrom('info@easysw.it', 'Portale EasySw');
         $mail->addAddress($email, 'Dest');  //Indirizzo destinatario
-        $mail->addReplyTo('visualexperienceunimarconi@gmail.com', 'User');          //Indirizzo di risposta
+        $mail->addReplyTo('info@easysw.it', 'User');          //Indirizzo di risposta
         //$mail->addCC('cc@gmail.com');                         //Campo CC  (Copia Carbone)    
-        $mail->addBCC('visualexperienceunimarconi@gmail.com');                       //Campo BCC (Copia Carbone Nascosta)
+        $mail->addBCC('a.calcidese@easysw.it');                       //Campo BCC (Copia Carbone Nascosta)
 
         //Content
         $mail->isHTML(true);                                  //Abilita invio in HTML

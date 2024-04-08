@@ -59,13 +59,66 @@ function usersCall() {
                 }
                 element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="viewListAddon(' + riga.id +')"><i class="fa-solid fa-list"></i></button></td>';
                 element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="openModRow(' + riga.id + ')"><i class="fa-solid fa-square-pen"></i></button></td>';
-                element += '<td><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-trash"></i></button></td>';
-                element += '<td><button type="button" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-arrows-rotate"></i></button></td>';
+                element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="deleteRow(' + riga.id + ')"><i class="fa-solid fa-trash"></i></button></td>';
+                element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="resetRow(' + riga.id + ')"><i class="fa-solid fa-arrows-rotate"></i></button></td>';
                 $("<tr/>")
                     .append(element)
                     .appendTo("#tabella");
             }
             tablePagination();
+        }
+    });
+}
+function resetRow(id, email) {
+    idRow = id;
+    $('#choice-title').text("Sei sicuro?");
+    $('#choice-text').html("Stai RESETTARE la password a  <b>" + searchData(id).nome + " " + searchData(id).cognome + "</b>");
+    $(".button-reset").removeClass("hide");
+    $('#modalChoice').modal('show');
+}
+
+
+function yesReset() {
+    var row = searchData(idRow);
+    $.ajax({
+        method: "POST",
+        url: "api/resetUser.php",
+        data: JSON.stringify({ id: idRow, email: row.email }),
+        dataType: 'json',
+        success: function (data) {
+            console.log("Pasword resettata");
+            closeModal();
+        },
+        error: function (error) {
+            console.log("UTENTE NON rsettato", error);
+            closeModal();
+
+        }
+    });
+}
+
+function deleteRow(id) {
+    idRow = id;
+    $('#choice-title').text("Sei sicuro?");
+    $('#choice-text').html("Stai per eliminare <b>" + searchData(id).nome + " " + searchData(id).cognome + "</b>");
+    $(".button-delete").removeClass("hide");
+    $('#modalChoice').modal('show');
+}
+
+function yesDelete() {
+    $.ajax({
+        method: "POST",
+        url: "api/deleteUser.php",
+        data: JSON.stringify({ id: idRow }),
+        dataType: 'json',
+        success: function (data) {
+            console.log("UTENTE CANCELLATO");
+            closeModal();
+        },
+        error: function (error) {
+            console.log("UTENTE NON CANCELLATO", error);
+            closeModal();
+
         }
     });
 }
@@ -78,7 +131,8 @@ function callPermission(id) {
         dataType: 'json',
         success: function (data) {
            for (var a = 0; a < data.length; a++) {
-                $("#checkaddon-" + data[a].func).attr('checked', 'checked');
+               //$("#checkaddon-" + data[a].func).attr('checked', 'checked');
+               $("#checkaddon-" + data[a].func).prop('checked', true);
             }
         },
         error: function (error) {
@@ -90,6 +144,8 @@ function callPermission(id) {
 
 function viewListAddon(id) {
     idRow = id;
+    // $(".check-addon").removeAttr('checked');
+    $(".check-addon").prop('checked', false);
     callPermission(id);
     $('#viewList').modal('show');
 }
@@ -120,7 +176,7 @@ function addonCall() {
             addons = righe;
             for (var a = 0; a < addons.length; a++) {
                 var check = '<li class="list-group-item">';
-                check += '<input class="form-check-input" type = "checkbox" onChange="modAddon(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '" ';
+                check += '<input class="form-check-input check-addon" type = "checkbox" onChange="modAddon(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '" ';
                 check += ' > ' + addons[a].name + '</li >';
                 $('#check-addon').append(check);
             }
@@ -130,6 +186,22 @@ function addonCall() {
 
 function modAddon(id) { 
     console.log(id);
+   
+    $(".check-addon").attr("disabled", "disabled");
+    $.ajax({
+        method: "POST",
+        url: "api/gestAddons.php",
+        data: JSON.stringify({ id: id, user: idRow }),
+        dataType: 'json',
+        success: function (data) {
+            console.log("Checkbox attiva", error);
+            $(".check-addon").removeAttr('disabled');
+        },
+        error: function (error) {
+            console.log("Nessuna Checkbox attiva", error);
+            $(".check-addon").removeAttr('disabled');
+        }
+    });
 }
 
 function cleanInput() {
@@ -270,6 +342,7 @@ function changeStatus(id, status) {
     } else {
         $('#choice-text').html("Stai per disabilitare <b>" + searchData(id).nome + " " + searchData(id).cognome + "</b>");
     }
+    $(".button-status").removeClass("hide");
     $('#modalChoice').modal('show');
 }
 $(document).ready(function () {

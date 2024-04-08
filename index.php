@@ -81,7 +81,9 @@
                 <input type="hidden" id="input-id">
               </div>
               <div class="modal-footer flex-nowrap p-0">
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end" onClick="yesStatus()"><strong>Si</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end button-status hide" onClick="yesStatus()"><strong>Si</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end button-delete hide" onClick="yesDelete()"><strong>Si</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end button-reset hide" onClick="yesReset()"><strong>Si</strong></button>
                 <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">No</button>
               </div>
             </div>
@@ -107,7 +109,7 @@
             </div>
           </div>
         </div>
-        
+
         <h2>Utenze</h2>
         <div class="table-responsive small">
           <table class="table table-striped table-sm display" id="tabella" style="width:100%">
