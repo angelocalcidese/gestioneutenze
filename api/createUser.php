@@ -27,7 +27,9 @@ if($exist){
     $result = $conn->query($sql);
 
     $title = "Benvenuto nel Portale EasySw";
-    $message = "Il suo account EasySW è stato cretato con successo. <br> La sua utenza è la seguente, <br> Login: ".$data["email"]."<br> Password:".$password."<br> Grazie.";
+    $message = "Il suo account EasySW &egrave; stato cretato con successo. <br><br> 
+    Puoi accedere al seguente <a href='https://www.easysw.it/login.php'><b>Link</b></a> per modificare la password e accedere al Portale.<br><br>
+    La sua utenza &egrave; la seguente, <br> Login: ".$data["email"]."<br> Password Provvisoria: ".$password. "<br> Grazie.";
 
     sendEmail($data["email"], $message, $title);
     echo $result;

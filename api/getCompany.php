@@ -11,6 +11,7 @@ if ($result->num_rows > 0) {
         $object = new stdClass();
         $object->id = $row["id"];
         $object->name = $row["name"];
+        $object->email = $row["email"];
         array_push($data, $object);
     }
 } else {

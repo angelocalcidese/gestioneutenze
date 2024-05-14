@@ -81,8 +81,9 @@
                 <input type="hidden" id="input-id">
               </div>
               <div class="modal-footer flex-nowrap p-0">
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end button-status hide" onClick="yesStatus()"><strong>Si</strong></button>
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end button-delete hide" onClick="yesDelete()"><strong>Si</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end butt-choice button-status hide" onClick="yesStatus()"><strong>Si</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end butt-choice button-view hide" onClick="yesView()"><strong>Si</strong></button>
+                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end butt-choice button-delete hide" onClick="yesDelete()"><strong>Si</strong></button>
                 <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end button-reset hide" onClick="yesReset()"><strong>Si</strong></button>
                 <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">No</button>
               </div>
@@ -127,6 +128,7 @@
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -147,6 +149,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
   <script src="dashboard.js"></script>
+  <?php include("../portale/footer.php"); ?>
 </body>
 
 </html>

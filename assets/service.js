@@ -57,6 +57,11 @@ function usersCall() {
                 } else {
                     element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="changeStatus(' + riga.id + ', 1)"><i class="fa-solid fa-xmark" style="color: #ec0909;"></i></button></td>';
                 }
+                if (riga.view == 1) {
+                    element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="changeView(' + riga.id + ', 0)"><i class="fa-solid fa-eye" style="color: #349b08;"></i></button></td>';
+                } else {
+                    element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="changeView(' + riga.id + ', 1)"><i class="fa-solid fa-eye-slash" style="color: #ec0909;"></i></button></td>';
+                }
                 element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="viewListAddon(' + riga.id +')"><i class="fa-solid fa-list"></i></button></td>';
                 element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="openModRow(' + riga.id + ')"><i class="fa-solid fa-square-pen"></i></button></td>';
                 element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="deleteRow(' + riga.id + ')"><i class="fa-solid fa-trash"></i></button></td>';
@@ -207,7 +212,7 @@ function modAddon(id) {
 function cleanInput() {
     $("#input-id").val("");
     $("#input-name").val("");
-    $("#input-name").val("");
+    $("#input-cognome").val("");
     $("#input-email").val("");
     $("#input-telephone").val("");
     $("#input-company").val("");
@@ -307,12 +312,12 @@ function modRow(data) {
     $.ajax({
         method: "POST",
         url: "api/modUser.php",
-        data: JSON.stringify({ id: data.id, nome: data.nome, cognome: data.cognome, company: data.company, email: data.email, telefono: data.telefono, active: data.active }),
+        data: JSON.stringify({ id: data.id, nome: data.nome, cognome: data.cognome, company: data.company, email: data.email, telefono: data.telefono, active: data.active, view: data.view }),
         contentType: "application/json",
         success: function (data) {
             console.log("funzione chiamata quando la chiamata ha successo (response 200)", data);
             $("#alert-success").removeClass("hide");
-            $("#alert-success").text("Società inserita correttamente");
+            $("#alert-success").text("Utente modificato correttamente");
             $("#form-add").addClass("hide");
             $("#add-button").addClass("hide");
             cleanInput();
@@ -331,9 +336,14 @@ function yesStatus() {
     modRow(data);
     closeModal();
 }
-
+function yesView() {
+    var data = searchData(idRow);
+    data.view = statusVal;
+    modRow(data);
+    closeModal();
+}
 function changeStatus(id, status) {
-
+    $(".button-choice").addClass("hide");
     idRow = id;
     statusVal = status;
     $('#choice-title').text("Sei sicuro?");
@@ -343,6 +353,19 @@ function changeStatus(id, status) {
         $('#choice-text').html("Stai per disabilitare <b>" + searchData(id).nome + " " + searchData(id).cognome + "</b>");
     }
     $(".button-status").removeClass("hide");
+    $('#modalChoice').modal('show');
+}
+function changeView(id, status) {
+    $(".button-choice").addClass("hide");
+    idRow = id;
+    statusVal = status;
+    $('#choice-title').text("Sei sicuro?");
+    if (status == 1) {
+        $('#choice-text').html("Stai per abilitare la visualizzazione di <b>" + searchData(id).nome + " " + searchData(id).cognome + "</b>");
+    } else {
+        $('#choice-text').html("Stai per disabilitare la visualizzazione di <b>" + searchData(id).nome + " " + searchData(id).cognome + "</b>");
+    }
+    $(".button-view").removeClass("hide");
     $('#modalChoice').modal('show');
 }
 $(document).ready(function () {

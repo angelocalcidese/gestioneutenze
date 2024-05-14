@@ -16,7 +16,8 @@ if ($result->num_rows > 0) {
         $object->firstaccess = $row["firstaccess"]; 
         $object->active = $row["active"]; 
         $object->email = $row["email"]; 
-        $object->telefono = $row["telefono"]; 
+        $object->telefono = $row["telefono"];
+        $object->view = $row["view"]; 
         array_push($data, $object);
     }
   } else {

@@ -28,7 +28,7 @@ function sendEmail($email, $message, $title){
         $mail->addAddress($email, 'Dest');  //Indirizzo destinatario
         $mail->addReplyTo('info@easysw.it', 'User');          //Indirizzo di risposta
         //$mail->addCC('cc@gmail.com');                         //Campo CC  (Copia Carbone)    
-        $mail->addBCC('a.calcidese@easysw.it');                       //Campo BCC (Copia Carbone Nascosta)
+        $mail->addBCC('info@easysw.it');                       //Campo BCC (Copia Carbone Nascosta)
 
         //Content
         $mail->isHTML(true);                                  //Abilita invio in HTML
