@@ -1,8 +1,8 @@
 <?php
-require_once "../cors.php";
-require_once "../config.php";
+require_once "../../portale/cors.php";
+require_once "../../portale/config.php";
 
-$sql = "SELECT * FROM `addon`";
+$sql = "SELECT * FROM `addon` ORDER BY `tipologia`";
 $result = $conn->query($sql);
 $data = array();
 
@@ -11,6 +11,7 @@ if ($result->num_rows > 0) {
         $object = new stdClass();
         $object->id = $row["id"];
         $object->name = $row["voce"];
+        $object->tipologia = $row["tipologia"];
         array_push($data, $object);
     }
 } else {

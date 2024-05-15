@@ -172,6 +172,16 @@ function companyCall() {
     });
 }
 
+function searchVoiceMenu(id) {
+    var resp = null;
+    for (var a = 0; a < menu.length; a++) {
+        if (id == menu[a].id) {
+            resp = menu[a].voce;
+        }
+    }
+    return resp;
+}
+
 function addonCall() {
     $.ajax({
         url: 'api/getAddon.php',
@@ -182,7 +192,7 @@ function addonCall() {
             for (var a = 0; a < addons.length; a++) {
                 var check = '<li class="list-group-item">';
                 check += '<input class="form-check-input check-addon" type = "checkbox" onChange="modAddon(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '" ';
-                check += ' > ' + addons[a].name + '</li >';
+                check += ' > (' + searchVoiceMenu(addons[a].tipologia)  + ') ' + addons[a].name + '</li >';
                 $('#check-addon').append(check);
             }
         }
