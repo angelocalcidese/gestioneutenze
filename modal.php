@@ -31,7 +31,6 @@
                         <label for="input-telephone" class="col-form-label">Telefono:</label>
                         <input type="text" class="form-control" id="input-telephone">
                     </div>
-
                 </form>
 
             </div>

@@ -35,6 +35,7 @@
                 <th scope="col">Società</th>
                 <th scope="col">Email</th>
                 <th scope="col">Telefono</th>
+                <th scope="col">Ruolo</th>
                 <th scope="col">Primo Accesso</th>
                 <th scope="col">Attivo</th>
                 <th scope="col"></th>

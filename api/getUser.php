@@ -17,6 +17,7 @@ if ($result->num_rows > 0) {
         $object->active = $row["active"]; 
         $object->email = $row["email"]; 
         $object->telefono = $row["telefono"];
+        $object->ruolo = $row["ruolo"];
         $object->view = $row["view"]; 
         array_push($data, $object);
     }

@@ -51,6 +51,7 @@ function usersCall() {
                 element += "<td>" + searchCompany(riga.company) + "</td>";
                 element += "<td>" + riga.email + "</td>";
                 element += "<td>" + riga.telefono + "</td>";
+                element += "<td>" + searchRole(riga.ruolo) + "</td>";
                 element += "<td>" + controlAccess(riga.firstaccess) + "</td>";
                 if (riga.active == 1) {
                     element += '<td><button type="button" class="btn btn-sm btn-outline-secondary" onClick="changeStatus(' + riga.id + ', 0)"><i class="fa-solid fa-check" style="color: #349b08;"></i></button></td>';
