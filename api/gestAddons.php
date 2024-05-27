@@ -12,15 +12,15 @@ $pres = "Errore";
 if ($result->num_rows > 0) {
     $sql1 = "DELETE FROM permission WHERE `permission`.`user` = " . $data["user"] . " AND `permission`.`function` = " . $data["id"];
     $result1 = $conn->query($sql1);
-    $pres = "Rimosso correttamente";
+   // $pres = "Rimosso correttamente";
 } else {
     $sql1 = "INSERT INTO `permission` (`id`, `user`, `function`) VALUES (NULL, '" . $data["user"] . "', '". $data["id"]."')";
     $result1 = $conn->query($sql1);
-    $pres = "Aggiunto correttamente";
+   //  $pres = "Aggiunto correttamente";
 }
 
 //print_r($data);
 //echo $pres;
-echo $pres;
+echo $result1;
 
 $conn->close();

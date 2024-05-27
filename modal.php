@@ -62,7 +62,7 @@
 </div>
 
 <div class="modal fade" id="viewList" tabindex="-1" aria-labelledby="viewListLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addListLabel">Visualizza Addon da abilitare</h1>
@@ -70,12 +70,28 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <ul class="list-group" id="check-addon">
-                    </ul>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sezione</th>
+                                <th scope="col">Voce menu</th>
+                                <th scope="col">Read</th>
+                                <th scope="col">Create - Update - Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tr-addons">
+                            
+                        </tbody>
+                    </table>
+
+
+                    <!--<ul class="list-group" id="check-addon">
+                    </ul>-->
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-secondary" onClick="closeModal()">Chiudi</button>
             </div>
         </div>
     </div>

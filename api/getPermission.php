@@ -15,6 +15,7 @@ if ($result->num_rows > 0) {
         $object->id = $row["id"];
         $object->user = $row["user"];
         $object->func = $row["function"];
+        $object->cud = $row["cud"];
         array_push($data, $object);
     }
 } else {

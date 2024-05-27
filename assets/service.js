@@ -2,7 +2,7 @@ var rowel = [];
 var company = [];
 var addons = [];
 var permission = [];
-
+var vocimenu = [];
 var idRow = null;
 var statusVal = null;
 
@@ -139,6 +139,10 @@ function callPermission(id) {
            for (var a = 0; a < data.length; a++) {
                //$("#checkaddon-" + data[a].func).attr('checked', 'checked');
                $("#checkaddon-" + data[a].func).prop('checked', true);
+               if (data[a].cud == "1") {
+                  // $("#checkaddon-" + data[a].func).prop('disabled', 'disabled');
+                  $("#checkaddon-" + data[a].func + "-cud").prop('checked', true); 
+               }
             }
         },
         error: function (error) {
@@ -175,12 +179,28 @@ function companyCall() {
 
 function searchVoiceMenu(id) {
     var resp = null;
-    for (var a = 0; a < menu.length; a++) {
-        if (id == menu[a].id) {
-            resp = menu[a].voce;
+    for (var a = 0; a < vocimenu.length; a++) {
+        if (id == vocimenu[a].id) {
+            resp = vocimenu[a].voce;
         }
     }
     return resp;
+}
+
+function callMenuVoice() {
+    $.ajax({
+        method: "GET",
+        url: "../portale/api/getMenu.php",
+        dataType: 'json',
+        success: function (data) {
+            vocimenu = data;
+            addonCall()
+        },
+        error: function (error) {
+            console.log("funzione chiamata quando la chiamata fallisce", error);
+            addonCall()
+        }
+    });
 }
 
 function addonCall() {
@@ -190,27 +210,59 @@ function addonCall() {
         complete: function (addon) {
              var righe = addon.responseJSON;
             addons = righe;
+
             for (var a = 0; a < addons.length; a++) {
+                var tr = '<tr>';
+                tr += '<th scope = "row" >' + searchVoiceMenu(addons[a].tipologia) + '</th>';
+                tr += '<td>' + addons[a].name + '</td>';
+                tr += '<td><input class="form-check-input check-addon" type = "checkbox" onChange="modAddon(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '" ></td>';
+                tr += '<td><input class="form-check-input check-addon" type = "checkbox" onChange="modAddonCud(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '-cud" ></td>';
+                tr += '</tr> ';
+                $('#tr-addons').append(tr);
+            }
+
+           /* for (var a = 0; a < addons.length; a++) {
                 var check = '<li class="list-group-item">';
                 check += '<input class="form-check-input check-addon" type = "checkbox" onChange="modAddon(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '" ';
                 check += ' > (' + searchVoiceMenu(addons[a].tipologia)  + ') ' + addons[a].name + '</li >';
                 $('#check-addon').append(check);
-            }
+            }*/
         }
     });
 }
 
 function modAddon(id) { 
-    console.log(id);
-   
+    //console.log(id);
+    
     $(".check-addon").attr("disabled", "disabled");
     $.ajax({
         method: "POST",
         url: "api/gestAddons.php",
-        data: JSON.stringify({ id: id, user: idRow }),
+        data: JSON.stringify({ id: id, user: idRow, cud: false }),
         dataType: 'json',
         success: function (data) {
-            console.log("Checkbox attiva", error);
+            $(".check-addon").prop('checked', false);
+            callPermission(idRow);
+            $(".check-addon").removeAttr('disabled');
+        },
+        error: function (error) {
+            console.log("Nessuna Checkbox attiva", error);
+            $(".check-addon").removeAttr('disabled');
+        }
+    });
+}
+function modAddonCud(id) {
+    console.log(id);
+
+    $(".check-addon").attr("disabled", "disabled");
+    $.ajax({
+        method: "POST",
+        url: "api/gestAddonsCud.php",
+        data: JSON.stringify({ id: id, user: idRow, cud: true }),
+        dataType: 'json',
+        success: function (data) {
+            $(".check-addon").prop('checked', false);
+            callPermission(idRow);
             $(".check-addon").removeAttr('disabled');
         },
         error: function (error) {
@@ -381,7 +433,7 @@ function changeView(id, status) {
 }
 $(document).ready(function () {
     companyCall();
-    addonCall()
+    callMenuVoice()
 });
     
            
