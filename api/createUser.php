@@ -26,9 +26,9 @@ if($exist){
     VALUES (NULL, '" . $data["nome"] . "', '" . $data["cognome"] . "', '" . $data["email"] . "', '" . $data["telefono"] . "', '1', '" . $hash . "', '" . $data["company"] . "', '1');";
     $result = $conn->query($sql);
 
-    $title = "Benvenuto nel Portale EasySw";
-    $message = "Il suo account EasySW &egrave; stato cretato con successo. <br><br> 
-    Puoi accedere al seguente <a href='https://www.easysw.it/login.php'><b>Link</b></a> per modificare la password e accedere al Portale.<br><br>
+    $title = "Benvenuto nel ". $emailObj;
+    $message = "Il suo account ". $emailTeams." &egrave; stato cretato con successo. <br><br> 
+    Puoi accedere al seguente <a href='".$emailAddress."login.php'><b>Link</b></a> per modificare la password e accedere al Portale.<br><br>
     La sua utenza &egrave; la seguente, <br> Login: ".$data["email"]."<br> Password Provvisoria: ".$password. "<br> Grazie.";
 
     sendEmail($data["email"], $message, $title);
