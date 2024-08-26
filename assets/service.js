@@ -193,6 +193,7 @@ function callMenuVoice() {
         url: "../portale/api/getMenu.php",
         dataType: 'json',
         success: function (data) {
+            //console.log("VOCI MENU: ", data);
             vocimenu = data;
             addonCall()
         },
@@ -208,9 +209,8 @@ function addonCall() {
         url: 'api/getAddon.php',
         dataType: 'json', //restituisce un oggetto JSON
         complete: function (addon) {
-             var righe = addon.responseJSON;
+            var righe = addon.responseJSON;
             addons = righe;
-
             for (var a = 0; a < addons.length; a++) {
                 var tr = '<tr>';
                 tr += '<th scope = "row" >' + searchVoiceMenu(addons[a].tipologia) + '</th>';
@@ -221,26 +221,23 @@ function addonCall() {
                 $('#tr-addons').append(tr);
             }
 
-           /* for (var a = 0; a < addons.length; a++) {
-                var check = '<li class="list-group-item">';
-                check += '<input class="form-check-input check-addon" type = "checkbox" onChange="modAddon(' + addons[a].id + ', ' + idRow + ')" value = "" id="checkaddon-' + addons[a].id + '" ';
-                check += ' > (' + searchVoiceMenu(addons[a].tipologia)  + ') ' + addons[a].name + '</li >';
-                $('#check-addon').append(check);
-            }*/
         }
     });
 }
 
 function modAddon(id) { 
-    //console.log(id);
-    
-    $(".check-addon").attr("disabled", "disabled");
+   $(".check-addon").attr("disabled", "disabled");
     $.ajax({
         method: "POST",
         url: "api/gestAddons.php",
         data: JSON.stringify({ id: id, user: idRow, cud: false }),
-        dataType: 'json',
+        dataType: 'text',
         success: function (data) {
+            //console.log("RESP DATA: ", data);
+            if (data == "OK") {
+                var el = searchItemInData(id, addonsList);
+                createNotifiche(el.url, "fa-square-plus", "Ti è stata attivata la funzionalità (" + el.voce + ")", idRow)
+            }
             $(".check-addon").prop('checked', false);
             callPermission(idRow);
             $(".check-addon").removeAttr('disabled');
@@ -418,6 +415,7 @@ function changeStatus(id, status) {
     $(".button-status").removeClass("hide");
     $('#modalChoice').modal('show');
 }
+
 function changeView(id, status) {
     $(".button-choice").addClass("hide");
     idRow = id;
@@ -433,7 +431,8 @@ function changeView(id, status) {
 }
 $(document).ready(function () {
     companyCall();
-    callMenuVoice()
+    callMenuVoice();
+    callAddonsList();
 });
     
            
