@@ -21,9 +21,9 @@ $ut_sql = "SELECT * FROM `user` WHERE `email` = '".$data["email"]."'";
 if($exist){
     $password = random_str(10);
     $hash = password_hash($password, PASSWORD_DEFAULT);
-
+    $cognome = str_replace("'", "\'", $data["cognome"]);
     $sql = "INSERT INTO `user` (`id`, `nome`, `cognome`, `email`, `telefono`, `active`, `password`, `company`, `firstaccess`) 
-    VALUES (NULL, '" . $data["nome"] . "', '" . $data["cognome"] . "', '" . $data["email"] . "', '" . $data["telefono"] . "', '1', '" . $hash . "', '" . $data["company"] . "', '1');";
+    VALUES (NULL, '" . $data["nome"] . "', '" . $cognome . "', '" . $data["email"] . "', '" . $data["telefono"] . "', '1', '" . $hash . "', '" . $data["company"] . "', '1');";
     $result = $conn->query($sql);
 
     $title = "Benvenuto nel ". $emailObj;
